@@ -38,6 +38,7 @@ function SignUpComponent({ onChangeInput, userInfo, onSubmit }) {
         <InputWrap>
           <InputLable>비밀 번호</InputLable>
           <RoundedInput
+            type="password"
             name="password"
             value={password}
             onChange={onChangeInput}

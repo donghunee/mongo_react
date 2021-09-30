@@ -16,20 +16,29 @@ const InputWrap = styled.div`
   }
 `;
 
-function SignInComponent() {
+function SignInComponent({ onChangeInput, onSubmit, userInfo }) {
   return (
     <BorderBox>
       <InputTitle>로그인</InputTitle>
       <FormWrap>
         <InputWrap>
           <InputLable>유저 아이디</InputLable>
-          <RoundedInput />
+          <RoundedInput
+            name="userId"
+            value={userInfo.userId}
+            onChange={onChangeInput}
+          />
         </InputWrap>
         <InputWrap>
           <InputLable>비밀 번호</InputLable>
-          <RoundedInput />
+          <RoundedInput
+            type="password"
+            name="password"
+            value={userInfo.password}
+            onChange={onChangeInput}
+          />
         </InputWrap>
-        <RoundedButton>로그인</RoundedButton>
+        <RoundedButton onClick={onSubmit}>로그인</RoundedButton>
       </FormWrap>
     </BorderBox>
   );
