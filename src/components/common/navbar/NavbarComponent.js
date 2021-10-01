@@ -97,7 +97,6 @@ const NavSearchRoundBox = styled.div`
   border-radius: 2rem;
   display: flex;
   align-items: center;
-  margin-right: 1rem;
 `;
 
 const NavSearchInput = styled.input`
@@ -110,7 +109,42 @@ const NavSearchInput = styled.input`
   }
 `;
 
-function NavbarComponent({ isLoggined, onClickSignout }) {
+const SearchInputWrap = styled.div`
+  position: relative;
+  margin-right: 1rem;
+`;
+
+const SearchBoard = styled.div`
+  width: 100%;
+  height: 15rem;
+  position: absolute;
+  top: 3.5rem;
+  box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid #dedede;
+  background: #ffffff;
+`;
+
+const SearchItemWrap = styled.div`
+  padding: 1rem;
+
+  & + & {
+    border-top: 1px solid #dedede;
+  }
+`;
+
+const SearchItemTitle = styled.div`
+  font-size: 1.3rem;
+  font-weight: normal;
+`;
+
+function NavbarComponent({
+  isLoggined,
+  onClickSignout,
+  onChangeInput,
+  searchInfo,
+  searchState,
+  searchData,
+}) {
   return (
     <>
       <NavbarWrap>
@@ -133,12 +167,32 @@ function NavbarComponent({ isLoggined, onClickSignout }) {
           </NavFrontWrap>
           <NavProfileWrap>
             <NavIconsWrap>
-              <NavSearchRoundBox>
-                <NavSearchInput />
-                <NavStyledIcon>
-                  <AiOutlineSearch />
-                </NavStyledIcon>
-              </NavSearchRoundBox>
+              <SearchInputWrap>
+                <NavSearchRoundBox>
+                  <NavSearchInput
+                    name="search"
+                    value={searchInfo.search}
+                    onChange={onChangeInput}
+                  />
+                  <NavStyledIcon>
+                    <AiOutlineSearch />
+                  </NavStyledIcon>
+                </NavSearchRoundBox>
+                {searchState ? (
+                  <>
+                    <SearchBoard>
+                      {searchData.map((item, idx) => (
+                        <SearchItemWrap key={idx}>
+                          <SearchItemTitle>{item.title}</SearchItemTitle>
+                        </SearchItemWrap>
+                      ))}
+                    </SearchBoard>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </SearchInputWrap>
+
               <NavStyledIcon>
                 <AiOutlineComment />
               </NavStyledIcon>
