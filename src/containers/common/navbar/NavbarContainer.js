@@ -24,6 +24,14 @@ function NavbarContainer({ isLoggined, setIsLoggined }) {
     }
   }, [searchInfo]);
 
+  const onClickAutoComplete = (text) => {
+    const originText = text[0].replace("<em>", "").replace("</em>", "");
+    setSearchInfo({
+      ...searchInfo,
+      search: originText,
+    });
+  };
+
   const onChangeInput = async (event) => {
     // 검색어 입력
     const { name, value } = event.target;
@@ -67,6 +75,7 @@ function NavbarContainer({ isLoggined, setIsLoggined }) {
 
   return (
     <NavbarComponent
+      onClickAutoComplete={onClickAutoComplete}
       searchData={searchData}
       searchState={searchState}
       onClickSearch={onClickSearch}

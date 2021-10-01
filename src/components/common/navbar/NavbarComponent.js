@@ -126,6 +126,7 @@ const SearchBoard = styled.div`
 
 const SearchItemWrap = styled.div`
   padding: 1rem;
+  cursor: pointer;
 
   & + & {
     border-top: 1px solid #dedede;
@@ -144,6 +145,7 @@ function NavbarComponent({
   searchInfo,
   searchState,
   searchData,
+  onClickAutoComplete,
 }) {
   return (
     <>
@@ -182,8 +184,13 @@ function NavbarComponent({
                   <>
                     <SearchBoard>
                       {searchData.map((item, idx) => (
-                        <SearchItemWrap key={idx}>
-                          <SearchItemTitle>{item.title}</SearchItemTitle>
+                        <SearchItemWrap
+                          key={idx}
+                          onClick={() => onClickAutoComplete(item.title)}
+                        >
+                          <SearchItemTitle
+                            dangerouslySetInnerHTML={{ __html: item.title }}
+                          ></SearchItemTitle>
                         </SearchItemWrap>
                       ))}
                     </SearchBoard>

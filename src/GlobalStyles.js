@@ -5,6 +5,10 @@ const GlobalStyles = createGlobalStyle`
   ${reset};
   html {
     font-size: 10px;
+  };
+  em {
+    font-weight: bolder;
+    color: orange
   }
 `;
 
