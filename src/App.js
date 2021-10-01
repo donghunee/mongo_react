@@ -21,9 +21,13 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <NavbarContainer isLoggined={isLoggined} />
+      <NavbarContainer isLoggined={isLoggined} setIsLoggined={setIsLoggined} />
       <Route path="/" exact={true} component={Home} />
-      <Route path="/signin" exact={true} component={SignIn} />
+      <Route
+        path="/signin"
+        exact={true}
+        component={() => <SignIn setIsLoggined={setIsLoggined} />}
+      />
       <Route path="/signup" exact={true} component={SignUp} />
     </>
   );

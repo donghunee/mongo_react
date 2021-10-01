@@ -69,6 +69,7 @@ const NavStyledIcon = styled.div`
   font-size: 2.5rem;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   & + & {
     margin-left: 1rem;
@@ -81,7 +82,35 @@ const NavProfileImg = styled.img`
   margin-left: 3rem;
 `;
 
-function NavbarComponent({ isLoggined }) {
+const NavSignout = styled.div`
+  font-size: 1.5rem;
+  font-weight: normal;
+  text-decoration: none;
+  color: #000000;
+  margin-right: 10px;
+  cursor: pointer;
+`;
+
+const NavSearchRoundBox = styled.div`
+  border: 1px solid black;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+`;
+
+const NavSearchInput = styled.input`
+  flex: 1;
+  border: none;
+  width: 13rem;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+function NavbarComponent({ isLoggined, onClickSignout }) {
   return (
     <>
       <NavbarWrap>
@@ -97,16 +126,19 @@ function NavbarComponent({ isLoggined }) {
               ) : (
                 <>
                   <NavStyledLink to="/write">글쓰기</NavStyledLink>
-                  <NavStyledLink to="/signout">로그아웃</NavStyledLink>
+                  <NavSignout onClick={onClickSignout}>로그아웃</NavSignout>
                 </>
               )}
             </NavLinkWrap>
           </NavFrontWrap>
           <NavProfileWrap>
             <NavIconsWrap>
-              <NavStyledIcon>
-                <AiOutlineSearch />
-              </NavStyledIcon>
+              <NavSearchRoundBox>
+                <NavSearchInput />
+                <NavStyledIcon>
+                  <AiOutlineSearch />
+                </NavStyledIcon>
+              </NavSearchRoundBox>
               <NavStyledIcon>
                 <AiOutlineComment />
               </NavStyledIcon>
