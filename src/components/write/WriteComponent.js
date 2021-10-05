@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Quill from "quill";
 import "quill/dist/quill.bubble.css";
+import "quill/dist/quill.snow.css";
+import RoundedButton from "../common/button/RoundedButton";
 
 const WriteWrap = styled.div`
   width: 80rem;
@@ -16,28 +18,43 @@ const TitleInput = styled.input`
   width: 100%;
   border-radius: 0.5rem;
   box-sizing: border-box;
+  margin-bottom: 2rem;
 `;
 
 const QuillWrap = styled.div`
   .ql-editor {
-    border: 1px solid grey;
-    padding: 0;
-    min-height: 320px;
-    font-size: 1.125rem;
+    min-height: 30rem;
     line-height: 1.5;
-  }
-  .ql-editor.ql-blank:before {
-    left: 0px;
   }
 `;
 
-function WriteComponent() {
+const ButtonWrap = styled.div`
+  text-align: right;
+`;
+
+const StyledSubmitButton = styled(RoundedButton)`
+  width: 20rem;
+`;
+
+const StyledCancelButton = styled(RoundedButton)`
+  width: 20rem;
+  background: grey;
+  margin-right: 1rem;
+`;
+
+function WriteComponent({
+  onChangeBody,
+  body,
+  title,
+  onChangeInput,
+  onClickSubmit,
+}) {
   const quillElement = useRef(null);
   const quillInstance = useRef(null);
 
   useEffect(() => {
     quillInstance.current = new Quill(quillElement.current, {
-      theme: "bubble",
+      theme: "snow",
       placeholder: "내용을 작성해주세요~",
       modules: {
         toolbar: [
@@ -52,7 +69,7 @@ function WriteComponent() {
     const quill = quillInstance.current;
     quill.on("text-change", (delta, oldDelta, source) => {
       if (source === "user") {
-        console.log(quill.root.innerHTML);
+        onChangeBody(quill.root.innerHTML);
       }
     });
   }, []);
@@ -60,16 +77,20 @@ function WriteComponent() {
   const mounted = useRef(false);
   useEffect(() => {
     if (mounted.current) return;
-    mounted.current = true;
-    quillInstance.current.root.innerHTML = "";
-  }, []);
+    mounted.current = true; // true
+    quillInstance.current.root.innerHTML = body; // quill 초기 텍스트 값을 초기화시켜주는 역할
+  }, [body]);
 
   return (
     <WriteWrap>
-      <TitleInput />
+      <TitleInput name="title" value={title} onChange={onChangeInput} />
       <QuillWrap>
         <div ref={quillElement} />
       </QuillWrap>
+      <ButtonWrap>
+        <StyledCancelButton>취소</StyledCancelButton>
+        <StyledSubmitButton onClick={onClickSubmit}>제출</StyledSubmitButton>
+      </ButtonWrap>
     </WriteWrap>
   );
 }
