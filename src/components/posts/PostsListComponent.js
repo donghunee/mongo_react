@@ -9,12 +9,13 @@ const PostListWrap = styled.div`
   align-items: center;
 `;
 
-function PostsListComponent() {
+function PostsListComponent({ postsList, onClickPost }) {
+  // console.log(postsList);
   return (
     <PostListWrap>
-      <PostItemComponent />
-      <PostItemComponent />
-      <PostItemComponent />
+      {postsList.map((item, index) => (
+        <PostItemComponent key={index} post={item} onClickPost={onClickPost} />
+      ))}
     </PostListWrap>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import dayjs from "dayjs";
 
 const ItemBox = styled.div`
   border: 1px solid grey;
@@ -41,16 +42,19 @@ const ItemContent = styled.div`
   padding: 1rem 0;
 `;
 
-function PostItemComponent() {
+function PostItemComponent({ post, onClickPost }) {
+  const { title, content, writer, writeTime, _id } = post;
+  const formatDate = dayjs(writeTime).format("YYYY-MM-DD");
+
   return (
-    <ItemBox>
-      <ItemTitle>제목 테스트</ItemTitle>
+    <ItemBox onClick={() => onClickPost(_id)}>
+      <ItemTitle>{title}</ItemTitle>
       <ItemInfoWrap>
-        <ItemWriter>ssac</ItemWriter>
-        <ItemCreatedDate>2021-10-6</ItemCreatedDate>
+        <ItemWriter>{writer && writer.name}</ItemWriter>
+        <ItemCreatedDate>{formatDate}</ItemCreatedDate>
       </ItemInfoWrap>
       <hr />
-      <ItemContent>내용 테스트</ItemContent>
+      <ItemContent dangerouslySetInnerHTML={{ __html: content }} />
     </ItemBox>
   );
 }
