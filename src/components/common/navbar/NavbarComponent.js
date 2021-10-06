@@ -36,6 +36,8 @@ const NavFrontWrap = styled.div`
 const NavLogo = styled.div`
   font-size: 2rem;
   font-weight: bolder;
+  cursor: pointer;
+  user-select: none;
 `;
 
 const NavLinkWrap = styled.div`
@@ -146,13 +148,14 @@ function NavbarComponent({
   searchState,
   searchData,
   onClickAutoComplete,
+  onClickHome,
 }) {
   return (
     <>
       <NavbarWrap>
         <NavContainer>
           <NavFrontWrap>
-            <NavLogo>Sssac</NavLogo>
+            <NavLogo onClick={onClickHome}>Sssac</NavLogo>
             <NavLinkWrap>
               {!isLoggined ? (
                 <>
