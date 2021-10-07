@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import RoundedButton from "../common/button/RoundedButton";
 import { BsTrashFill, BsGearFill } from "react-icons/bs";
+import LoadingComponent from "../common/loading/LoadingComponent";
 
 const DetailWrap = styled.div`
   padding-top: 8rem;
@@ -68,24 +69,37 @@ const StyledTrashIcon = styled(BsTrashFill)`
   cursor: pointer;
 `;
 
-function DetailComponent() {
+function DetailComponent({ data, loading }) {
+  // data = null <-   data.title undefined error!!!
+  // data = {title , content}
+
   return (
-    <DetailWrap>
-      <DetailContainer>
-        <DetailTitleWrap>
-          <DetailTitle>제목</DetailTitle>
-          <DetailIconWrap>
-            <StyledGearIcon />
-            <StyledTrashIcon />
-          </DetailIconWrap>
-        </DetailTitleWrap>
-        <DetailHR />
-        <DetailContent>컨텐츠 입니다.</DetailContent>
-        <ButtonWrap>
-          <StyledBackButton>뒤로가기</StyledBackButton>
-        </ButtonWrap>
-      </DetailContainer>
-    </DetailWrap>
+    <>
+      {loading ? (
+        <LoadingComponent />
+      ) : (
+        data && (
+          <DetailWrap>
+            <DetailContainer>
+              <DetailTitleWrap>
+                <DetailTitle>{data.title}</DetailTitle>
+                <DetailIconWrap>
+                  <StyledGearIcon />
+                  <StyledTrashIcon />
+                </DetailIconWrap>
+              </DetailTitleWrap>
+              <DetailHR />
+              <DetailContent
+                dangerouslySetInnerHTML={{ __html: data.content }}
+              />
+              <ButtonWrap>
+                <StyledBackButton>뒤로가기</StyledBackButton>
+              </ButtonWrap>
+            </DetailContainer>
+          </DetailWrap>
+        )
+      )}
+    </>
   );
 }
 
