@@ -7,9 +7,14 @@ const GlobalStyles = createGlobalStyle`
     font-size: 10px;
   };
   em {
-    font-weight: bolder;
-    color: orange
-  }
+    /* font-weight: bolder;
+    color: orange */
+    font-style: italic;
+  };
+
+  strong {
+    font-weight: bolder
+  };
 `;
 
 export default GlobalStyles;

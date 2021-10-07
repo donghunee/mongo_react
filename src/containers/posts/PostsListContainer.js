@@ -9,9 +9,11 @@ function PostsListContainer() {
   const history = useHistory();
 
   const [postsList, setPostsList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getData() {
+      setLoading(true); // 로딩 화면 띄워짐
       try {
         const response = await axios({
           method: "GET",
@@ -22,9 +24,11 @@ function PostsListContainer() {
           const result = response.data.data;
           // console.log(result);
           setPostsList(result);
+          setLoading(false);
         }
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
     }
     getData();
@@ -35,7 +39,13 @@ function PostsListContainer() {
     history.push(`/post/${postId}`);
   };
 
-  return <PostsListComponent onClickPost={onClickPost} postsList={postsList} />;
+  return (
+    <PostsListComponent
+      loading={loading}
+      onClickPost={onClickPost}
+      postsList={postsList}
+    />
+  );
 }
 
 export default PostsListContainer;

@@ -56,6 +56,7 @@ function NavbarContainer({ isLoggined, setIsLoggined }) {
       if (result.status === 200) {
         const elsData = result.data.data;
         console.log(elsData);
+
         setSearchData(elsData);
       }
     } catch (error) {

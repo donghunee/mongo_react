@@ -1,9 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import DetailComponent from "../../components/post/DetailComponent";
+
+const baseURL = "http://localhost:3000";
 
 function DetailContainer() {
-  useEffect(() => {}, []);
+  const params = useParams();
+  const { postId } = params;
 
-  return <div></div>;
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // axios
+  }, []);
+
+  return <DetailComponent />;
 }
 
 export default DetailContainer;
